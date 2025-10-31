@@ -1,0 +1,87 @@
+======================================================================
+         REPORTE DE EJECUCIÓN - PIPELINE E-COMMERCE
+======================================================================
+Fecha de ejecución: 2025-10-31 18:09:03
+Timestamp: 20251031_180903
+======================================================================
+
+----------------------------------------------------------------------
+1. TESTS DE CALIDAD DE DATOS
+----------------------------------------------------------------------
+
+✓ ESTADO GENERAL: TODOS LOS TESTS PASARON
+
+Resultados detallados:
+    [OK] Precios No Negativos: ✓ PASÓ
+    [OK] Stock Valido: ✓ PASÓ
+    [OK] Categorias No Nulas: ✓ PASÓ
+
+----------------------------------------------------------------------
+2. ESTADÍSTICAS GENERALES DEL PIPELINE
+----------------------------------------------------------------------
+
+  Total de registros procesados: 5
+  Productos únicos: 5
+  Categorías distintas: 2
+  Total de unidades vendidas: 15
+  Valor total de ventas: $3,309.32
+  Rentabilidad total: $3,309.32
+  Margen promedio: 100.00%
+
+----------------------------------------------------------------------
+3. ALERTA: PRODUCTOS CON STOCK CRÍTICO
+----------------------------------------------------------------------
+
+⚠️  ATENCIÓN: 2 producto(s) con stock por debajo del mínimo
+
+Producto                                 Stock Actual Stock Mínimo    Déficit
+----------------------------------------------------------------------
+Mens Casual Premium Slim Fit T-Shirts               5           10          5
+Mens Casual Slim Fit                                3           10          7
+
+💡 RECOMENDACIÓN: Reabastecer estos productos urgentemente.
+
+----------------------------------------------------------------------
+4. TOP 10 PRODUCTOS MÁS VENDIDOS
+----------------------------------------------------------------------
+
+#    Producto                                             Unidades
+----------------------------------------------------------------------
+1    Mens Casual Premium Slim Fit T-Shirts                       5
+2    John Hardy Women's Legends Naga Gold & Silv                 4
+3    Fjallraven - Foldsack No. 1 Backpack, Fits                  3
+4    Mens Casual Slim Fit                                        2
+5    Mens Cotton Jacket                                          1
+
+----------------------------------------------------------------------
+5. ANÁLISIS DE VENTAS POR CATEGORÍA
+----------------------------------------------------------------------
+
+Categoría                     Unidades     Valor Total    Rentabilidad
+----------------------------------------------------------------------
+men's clothing                      11 $        529.32 $        529.32
+jewelery                             4 $      2,780.00 $      2,780.00
+
+----------------------------------------------------------------------
+6. ANÁLISIS DE RENTABILIDAD
+----------------------------------------------------------------------
+
+Top 5 productos más rentables:
+Producto                                              Rentabilidad
+----------------------------------------------------------------------
+John Hardy Women's Legends Naga Gold & Silv   $           2,780.00
+Fjallraven - Foldsack No. 1 Backpack, Fits    $             329.85
+Mens Casual Premium Slim Fit T-Shirts         $             111.50
+Mens Cotton Jacket                            $              55.99
+Mens Casual Slim Fit                          $              31.98
+
+======================================================================
+FIN DEL REPORTE
+======================================================================
+
+Archivos exportados:
+  - Reporte principal: reports/pipeline_report_20251031_180903.txt
+  - Stock crítico: reports/stock_critico_20251031_180903.csv
+  - Top productos: reports/top_productos_20251031_180903.csv
+  - Ventas por categoría: reports/ventas_categoria_20251031_180903.csv
+

@@ -1,0 +1,6 @@
+﻿product_id,quantity,sale_date,cost,current_stock,min_stock,title,category,price,total_sale_value,rentabilidad,ventas_totales_categoria
+1,3,2024-10-10,0.0,10,5,"Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",men's clothing,109.95,329.85,329.85,11
+2,5,2024-10-11,0.0,5,10,Mens Casual Premium Slim Fit T-Shirts ,men's clothing,22.3,111.5,111.5,11
+3,1,2024-10-12,0.0,8,5,Mens Cotton Jacket,men's clothing,55.99,55.99,55.99,11
+4,2,2024-10-13,0.0,3,10,Mens Casual Slim Fit,men's clothing,15.99,31.98,31.98,11
+5,4,2024-10-14,0.0,9,5,John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet,jewelery,695.0,2780.0,2780.0,4
