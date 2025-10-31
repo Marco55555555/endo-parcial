@@ -1,15 +1,10 @@
-# 🚀 Pipeline de Datos E-commerce - DataOps
+# Pipeline de Datos E-commerce - DataOps
 
 ## Parcial Segundo Corte - Implementación Completa
 
-**Autor:** [Tu Nombre]  
-**Curso:** DataOps  
-**Fecha:** Octubre 2024  
-**GitHub:** [tu-usuario/ecommerce-pipeline](https://github.com/tu-usuario/ecommerce-pipeline)
-
 ---
 
-## 📋 Tabla de Contenidos
+## Tabla de Contenidos
 
 1. [Ejercicio 1: Diseño de Pipeline](#ejercicio-1-diseño-de-pipeline-25-puntos)
 2. [Ejercicio 2: Implementación con Python](#ejercicio-2-implementación-con-python-35-puntos)
@@ -23,24 +18,24 @@
 
 ## Ejercicio 1: Diseño de Pipeline (25 puntos)
 
-### 🎯 Contexto del Negocio
+### Contexto del Negocio
 
 Una startup de e-commerce necesita integrar y analizar datos provenientes de múltiples fuentes:
 
 **Fuentes de Datos:**
-- 🌐 **API REST** - Catálogo de productos en tiempo real (Fake Store API)
-- 📄 **CSV de Ventas** - Histórico de transacciones
-- 📦 **CSV de Inventario** - Stock actual y mínimos requeridos
+- API REST - Catálogo de productos en tiempo real (Fake Store API)
+- CSV de Ventas - Histórico de transacciones
+- CSV de Inventario - Stock actual y mínimos requeridos
 
 **Requisitos de Negocio:**
-- ✅ Procesamiento diario automatizado
-- 📊 Dashboard de análisis de productos
-- ⚠️ Alertas de stock crítico
-- 💰 Cálculo de métricas de rentabilidad
+- Procesamiento diario automatizado
+- Dashboard de análisis de productos
+- Alertas de stock crítico
+- Cálculo de métricas de rentabilidad
 
 ---
 
-### 1️⃣ Diagrama de Arquitectura del Pipeline (10 puntos)
+### 1. Diagrama de Arquitectura del Pipeline (10 puntos)
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -65,9 +60,9 @@ Una startup de e-commerce necesita integrar y analizar datos provenientes de mú
 │                                                                     │
 │                ┌──────────────────────────┐                        │
 │                │  Data Lake (Parquet)     │                        │
-│                │  ✓ products.parquet      │                        │
-│                │  ✓ sales.parquet         │                        │
-│                │  ✓ inventory.parquet     │                        │
+│                │  • products.parquet      │                        │
+│                │  • sales.parquet         │                        │
+│                │  • inventory.parquet     │                        │
 │                │                          │                        │
 │                │  Ventajas:               │                        │
 │                │  • Compresión ~70%       │                        │
@@ -83,7 +78,7 @@ Una startup de e-commerce necesita integrar y analizar datos provenientes de mú
 │                                                                     │
 │   ┌──────────────────────────────────────────────────────────┐    │
 │   │          Transformaciones (Pandas)                       │    │
-│   │  • JOIN: sales ← inventory ← products                    │    │
+│   │  • JOIN: sales <- inventory <- products                  │    │
 │   │  • Normalización de columnas                             │    │
 │   │  • Cálculo de métricas de negocio:                       │    │
 │   │    - Valor total de ventas                               │    │
@@ -94,10 +89,10 @@ Una startup de e-commerce necesita integrar y analizar datos provenientes de mú
 │                        │                                           │
 │   ┌────────────────────▼─────────────────────────────────────┐    │
 │   │          Tests de Calidad de Datos                       │    │
-│   │  ✓ Precios no negativos                                  │    │
-│   │  ✓ Stock válido (entero >= 0)                            │    │
-│   │  ✓ Categorías no nulas                                   │    │
-│   │  ✓ Fechas válidas                                        │    │
+│   │  • Precios no negativos                                  │    │
+│   │  • Stock válido (entero >= 0)                            │    │
+│   │  • Categorías no nulas                                   │    │
+│   │  • Fechas válidas                                        │    │
 │   │                                                           │    │
 │   │  Enfoque: Shift-Left Testing                             │    │
 │   └────────────────────┬─────────────────────────────────────┘    │
@@ -133,16 +128,16 @@ Una startup de e-commerce necesita integrar y analizar datos provenientes de mú
 ┌─────────────────────────────────────────────────────────────────────┐
 │                    COMPONENTES TRANSVERSALES                        │
 ├─────────────────────────────────────────────────────────────────────┤
-│  🔧 Orquestación: Script Python (orchestador.py)                   │
-│  📝 Logging: logging module (archivo + consola)                    │
-│  ⚙️  Configuración: YAML (pipeline_config.yaml)                     │
-│  🔄 Versionamiento: Git + GitHub                                    │
-│  ✅ Calidad: Tests integrados en transformación                     │
-│  🐍 Lenguaje: Python 3.8+                                          │
+│  Orquestación: Script Python (orchestador.py)                      │
+│  Logging: logging module (archivo + consola)                       │
+│  Configuración: YAML (pipeline_config.yaml)                        │
+│  Versionamiento: Git + GitHub                                      │
+│  Calidad: Tests integrados en transformación                       │
+│  Lenguaje: Python 3.8+                                             │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-#### 🔑 Componentes Clave
+#### Componentes Clave
 
 | Componente | Tecnología | Justificación |
 |------------|-----------|---------------|
@@ -156,21 +151,21 @@ Una startup de e-commerce necesita integrar y analizar datos provenientes de mú
 
 ---
 
-### 2️⃣ Justificación Técnica (15 puntos)
+### 2. Justificación Técnica (15 puntos)
 
-#### ❓ ¿Por qué diseñé así el pipeline?
+#### ¿Por qué diseñé así el pipeline?
 
 **Decisión 1: Arquitectura ELT vs ETL**
 
 Elegí **ELT (Extract-Load-Transform)** porque:
 
-✅ **Ventajas:**
+Ventajas:
 - **Inmutabilidad de datos crudos:** Los datos raw en Parquet nunca se modifican
 - **Re-procesamiento sin re-ingesta:** Puedo transformar múltiples veces sin descargar de nuevo
 - **Flexibilidad:** Nuevas transformaciones no requieren cambiar la ingesta
 - **Auditoría:** Siempre puedo revisar los datos originales
 
-📊 **Flujo ELT implementado:**
+Flujo ELT implementado:
 ```
 Extract (API/CSV) → Load (Parquet) → Transform (Pandas) → Report (CSV/TXT)
 ```
@@ -179,10 +174,10 @@ Extract (API/CSV) → Load (Parquet) → Transform (Pandas) → Report (CSV/TXT)
 
 | Característica | CSV | Parquet | Decisión |
 |----------------|-----|---------|----------|
-| Compresión | ❌ No | ✅ ~70% | **Parquet** |
-| Tipos de datos | ❌ Texto | ✅ Preservados | **Parquet** |
-| Velocidad lectura | ❌ Lenta | ✅ Rápida (columnar) | **Parquet** |
-| Compatibilidad | ✅ Universal | ⚠️ Requiere librería | **Parquet** (con PyArrow) |
+| Compresión | No | ~70% | **Parquet** |
+| Tipos de datos | Texto | Preservados | **Parquet** |
+| Velocidad lectura | Lenta | Rápida (columnar) | **Parquet** |
+| Compatibilidad | Universal | Requiere librería | **Parquet** (con PyArrow) |
 
 **Decisión 3: Separación en Capas (Zones)**
 
@@ -195,13 +190,13 @@ Raw Zone → Processing Zone → Analytics Zone
 - **Analytics:** Resultados listos para consumo
 
 Esto facilita:
-- 🐛 **Debugging:** Revisar datos crudos cuando algo falla
-- 🔄 **Rollback:** Volver a procesar sin re-ingestar
-- 📊 **Auditoría:** Trazabilidad completa del dato
+- **Debugging:** Revisar datos crudos cuando algo falla
+- **Rollback:** Volver a procesar sin re-ingestar
+- **Auditoría:** Trazabilidad completa del dato
 
 ---
 
-#### ❓ ¿Cómo garantizo la calidad de datos?
+#### ¿Cómo garantizo la calidad de datos?
 
 Implemento una **estrategia de calidad multinivel** basada en **Shift-Left Testing**:
 
@@ -215,10 +210,17 @@ if not all(col in df.columns for col in required_cols):
 
 **Nivel 2: Tests de Integridad** (Implementados)
 ```python
-✓ Precios no negativos: (df["price"] >= 0).all()
-✓ Stock válido: df["stock"].apply(lambda x: isinstance(x, int) and x >= 0).all()
-✓ Categorías no nulas: df["category"].notna().all()
-✓ Fechas válidas: pd.to_datetime(df["date"], errors="raise")
+# Precios no negativos
+precios_ok = (df["price"] >= 0).all()
+
+# Stock válido
+stock_ok = df["stock"].apply(lambda x: isinstance(x, int) and x >= 0).all()
+
+# Categorías no nulas
+categorias_ok = df["category"].notna().all()
+
+# Fechas válidas
+fechas_ok = pd.to_datetime(df["date"], errors="raise")
 ```
 
 **Nivel 3: Tests de Negocio**
@@ -230,23 +232,23 @@ assert (df["price"] > df["cost"]).all(), "Precio debe ser mayor al costo"
 **Nivel 4: Logging y Alertas**
 ```python
 # Registro de cada test ejecutado
-logger.info(f"✓ Test de precios: {test_result}")
+logger.info(f"Test de precios: {test_result}")
 if not test_result:
-    logger.warning(f"⚠️ {failed_records} registros con precios inválidos")
+    logger.warning(f"{failed_records} registros con precios inválidos")
 ```
 
 **Principio Shift-Left:** Detectar problemas **lo más temprano posible** en el pipeline para evitar procesar datos corruptos.
 
 ---
 
-#### ❓ ¿Qué estrategia uso para versionamiento?
+#### ¿Qué estrategia uso para versionamiento?
 
 **Versionamiento de Código (Git)**
 
 ```bash
 # Estructura de branches
-main          ← Código en producción (estable)
-  ├── develop ← Integración continua
+main          <- Código en producción (estable)
+  ├── develop <- Integración continua
   │   ├── feature/ingestion-api
   │   ├── feature/quality-checks
   │   └── feature/reporting
@@ -255,12 +257,12 @@ main          ← Código en producción (estable)
 
 **Commits Atómicos:**
 ```bash
-✅ BIEN:
+BIEN:
 git commit -m "feat: agregar módulo de reportes"
 git commit -m "fix: corregir encoding en logs UTF-8"
 git commit -m "docs: actualizar README con ejemplos"
 
-❌ MAL:
+MAL:
 git commit -m "cambios varios"
 git commit -m "update"
 ```
@@ -283,10 +285,10 @@ dvc push
 ```
 
 **Ventajas de DVC:**
-- 📦 Versiona datasets como si fueran código
-- ☁️ Storage remoto (S3, GCS, Azure)
-- 🔄 Rollback de datos a cualquier versión
-- 🤝 Colaboración en equipo
+- Versiona datasets como si fueran código
+- Storage remoto (S3, GCS, Azure)
+- Rollback de datos a cualquier versión
+- Colaboración en equipo
 
 **Versionamiento de Configuración**
 
@@ -311,7 +313,7 @@ api:
 
 ---
 
-#### ❓ ¿Cómo manejo la escalabilidad?
+#### ¿Cómo manejo la escalabilidad?
 
 **Estrategia de Escalamiento Progresivo**
 
@@ -425,36 +427,36 @@ Ventajas:
 
 **Decisión de Diseño:** 
 Comencé con **Pandas + scripts** porque:
-- ✅ Simplicidad para PoC
-- ✅ Sin costos de infraestructura
-- ✅ Fácil de entender y mantener
-- ✅ Suficiente para volúmenes actuales
-- ✅ Código migratable a Polars/Spark sin reescribir lógica
+- Simplicidad para PoC
+- Sin costos de infraestructura
+- Fácil de entender y mantener
+- Suficiente para volúmenes actuales
+- Código migratable a Polars/Spark sin reescribir lógica
 
 ---
 
 ## Ejercicio 2: Implementación con Python (35 puntos)
 
-### 🎯 Resumen de Implementación
+### Resumen de Implementación
 
 | Fase | Puntos | Estado | Componentes |
 |------|--------|--------|-------------|
-| **Ingesta** | 10/10 | ✅ | API + CSV → Parquet |
-| **Transformación** | 15/15 | ✅ | Merges + 4 métricas + 4 tests |
-| **Automatización** | 10/10 | ✅ | Orquestador + YAML + Logging + Reportes |
-| **TOTAL** | **35/35** | ✅ | **100% Completo** |
+| **Ingesta** | 10/10 | Completo | API + CSV → Parquet |
+| **Transformación** | 15/15 | Completo | Merges + 4 métricas + 4 tests |
+| **Automatización** | 10/10 | Completo | Orquestador + YAML + Logging + Reportes |
+| **TOTAL** | **35/35** | **Completo** | **100% Implementado** |
 
 ---
 
-### 1️⃣ Ingesta de Datos (10 puntos)
+### 1. Ingesta de Datos (10 puntos)
 
 **Archivo:** `src/ingestion.py`
 
 **Funcionalidades:**
-- ✅ Descarga productos desde Fake Store API (https://fakestoreapi.com/products)
-- ✅ Carga archivos CSV locales (ventas e inventario)
-- ✅ Conversión y guardado en formato Parquet
-- ✅ Manejo de errores de conexión y archivos faltantes
+- Descarga productos desde Fake Store API
+- Carga archivos CSV locales (ventas e inventario)
+- Conversión y guardado en formato Parquet
+- Manejo de errores de conexión y archivos faltantes
 
 **Código:**
 ```python
@@ -490,13 +492,13 @@ data/raw/
 
 ---
 
-### 2️⃣ Transformación de Datos (15 puntos)
+### 2. Transformación de Datos (15 puntos)
 
 **Archivo:** `src/transformation.py`
 
 **Funcionalidades Implementadas:**
 
-#### ✅ Union de Datasets (Merges)
+#### Union de Datasets (Merges)
 ```python
 # 1. Sales + Inventory
 df = df_sales.merge(df_inventory, on="product_id", how="left")
@@ -506,7 +508,7 @@ df = df.merge(df_api[["product_id", "title", "category", "price"]],
               on="product_id", how="left")
 ```
 
-#### ✅ Métricas de Negocio (4 requeridas)
+#### Métricas de Negocio (4 requeridas)
 
 **1. Productos con Stock Crítico**
 ```python
@@ -536,7 +538,7 @@ df["total_sale_value"] = df["quantity"] * df["price"]
 df["rentabilidad"] = df["total_sale_value"] - (df["cost"] * df["quantity"])
 ```
 
-#### ✅ Tests de Calidad (4 implementados)
+#### Tests de Calidad (4 implementados)
 
 **Archivo:** `src/quality_checks.py`
 
@@ -579,18 +581,18 @@ if "sale_date" in df.columns:
 
 ---
 
-### 3️⃣ Automatización (10 puntos)
+### 3. Automatización (10 puntos)
 
-#### ✅ Orquestador del Pipeline
+#### Orquestador del Pipeline
 
-**Archivo:** `src/orchestador.py` o `run_pipeline.py`
+**Archivo:** `run_pipeline.py` o `src/orchestador.py`
 
 **Características:**
-- 🔄 Ejecuta todo el flujo automáticamente
-- 📝 Logging a archivo y consola
-- ⚙️ Configuración YAML
-- 🛡️ Manejo de errores robusto
-- 📊 Generación de reportes
+- Ejecuta todo el flujo automáticamente
+- Logging a archivo y consola
+- Configuración YAML
+- Manejo de errores robusto
+- Generación de reportes
 
 **Flujo de Ejecución:**
 ```python
@@ -603,7 +605,7 @@ if "sale_date" in df.columns:
 7. Resumen final
 ```
 
-#### ✅ Configuración YAML
+#### Configuración YAML
 
 **Archivo:** `config/pipeline_config.yaml`
 
@@ -629,7 +631,7 @@ quality_checks:
   check_dates: true
 ```
 
-#### ✅ Sistema de Logging
+#### Sistema de Logging
 
 ```python
 logging.basicConfig(
@@ -644,14 +646,14 @@ logging.basicConfig(
 
 **Log Generado:**
 ```
-2025-10-31 18:00:00,000 - INFO - 🚀 Iniciando pipeline de e-commerce...
-2025-10-31 18:00:01,200 - INFO - ✅ Ingesta completada.
-2025-10-31 18:00:02,500 - INFO - ✅ Transformación completada.
-2025-10-31 18:00:03,100 - INFO - ✅ Tests de calidad: TODOS PASARON
-2025-10-31 18:00:04,000 - INFO - 📊 Reporte generado: reports/pipeline_report_20251031_180000.txt
+2025-10-31 18:00:00,000 - INFO - Iniciando pipeline de e-commerce...
+2025-10-31 18:00:01,200 - INFO - Ingesta completada.
+2025-10-31 18:00:02,500 - INFO - Transformación completada.
+2025-10-31 18:00:03,100 - INFO - Tests de calidad: TODOS PASARON
+2025-10-31 18:00:04,000 - INFO - Reporte generado: reports/pipeline_report_20251031_180000.txt
 ```
 
-#### ✅ Generación de Reportes
+#### Generación de Reportes
 
 **Archivo:** `src/reporting.py`
 
@@ -673,7 +675,7 @@ logging.basicConfig(
 
 ---
 
-## 📦 Instalación y Configuración
+## Instalación y Configuración
 
 ### Requisitos Previos
 
@@ -742,7 +744,7 @@ mkdir -p data/raw reports
 
 ---
 
-## 🚀 Uso del Pipeline
+## Uso del Pipeline
 
 ### Ejecución Básica
 
@@ -750,17 +752,29 @@ mkdir -p data/raw reports
 python run_pipeline.py
 ```
 
-### Ejecución con Configuración Personalizada
+### Salida Esperada
 
-```bash
-python run_pipeline.py --config config/pipeline_config_custom.yaml
 ```
-
-### Ejecución Programada (Cron)
-
-**Linux/Mac:**
-```bash
-# Editar crontab
-crontab -e
-
-# Ejecutar diariamente a
+2025-10-31 18:00:00,000 - INFO - Iniciando pipeline de e-commerce...
+2025-10-31 18:00:00,100 - INFO - Iniciando ingesta de datos...
+✓ df_api: 20 productos
+✓ df_sales: 5 ventas
+✓ df_inventory: 5 registros
+2025-10-31 18:00:01,200 - INFO - Ingesta completada.
+2025-10-31 18:00:01,300 - INFO - Aplicando transformaciones...
+✓ Después de merge: 5 registros
+✓ Métricas calculadas
+⚠  Productos con stock crítico: 2
+✓ Top productos: 5
+2025-10-31 18:00:02,400 - INFO - Transformación completada.
+2025-10-31 18:00:02,500 - INFO - Ejecutando verificaciones de calidad...
+✓ Todos los tests de calidad pasaron correctamente.
+2025-10-31 18:00:02,600 - INFO - Todos los tests de calidad pasaron.
+2025-10-31 18:00:02,700 - INFO - Generando reportes...
+✓ Reporte generado: reports/pipeline_report_20251031_180002.txt
+2025-10-31 18:00:02,800 - INFO - Reporte generado
+============================================================
+2025-10-31 18:00:02,900 - INFO - PIPELINE EJECUTADO EXITOSAMENTE
+============================================================
+2025-10-31 18:00:02,900 - INFO - Registros procesados: 5
+2025-10-31
